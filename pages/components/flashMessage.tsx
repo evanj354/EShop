@@ -1,6 +1,7 @@
 import { Alert } from "react-bootstrap";
 
 const SuccessFlash = (props) => {
+    //Props: message, class, visible
     return (
         <div>
             { props.message && (

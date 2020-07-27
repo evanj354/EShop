@@ -2,6 +2,8 @@ import { Form, FormGroup, FormLabel, FormControl, FormText, Button, Alert } from
 import Layout from './layout';
 import { DangerFlash } from './components/flashMessage';
 import React from "react";
+import Router from 'next/router';
+
 import axios from 'axios';
 
 const url = 'http://localhost:3000/';
@@ -15,6 +17,10 @@ class Login extends React.Component {
             password: ''
         }
     }
+
+    // componentDidMount() {
+    //     Router.push('/login', '/login', {shallow: true});
+    // }
 
     static async getInitialProps(context) {
         let query = context.query;
@@ -50,7 +56,7 @@ class Login extends React.Component {
             {(parent) => 
                 <div className="mt-5">
                     {console.log("Parent ", parent)}
-                    <Form className="container card card-body rounded col-md-6 m-auto d-flex flex-column" method="post">
+                    <Form className="container card card-body rounded col-md-6 m-auto d-flex flex-column" action="/login" method="post">
                         <h1>Login Here</h1> 
                         <FormGroup controlId="formEmail">
                             <FormLabel>Email Address</FormLabel>

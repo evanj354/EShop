@@ -31,5 +31,3 @@ store.subscribe(() => {
 })
 
 export {store, persistor};
-
-// export { store };

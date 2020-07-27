@@ -1,8 +1,8 @@
-
 const express = require('express');
 const next = require('next');
 const flash = require('express-flash-messages');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const reactViews = require('express-react-views');
@@ -33,7 +33,7 @@ app.prepare().then(() => {
         saveUninitialized: false,
         cookie: {maxAge: 6000}
     }));
-    server.use(flash());
+    server.use(cookieParser());    
 
     server.use('/login', login);
     

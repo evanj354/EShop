@@ -25,9 +25,11 @@ router.post('/', (req, res) => {
             return app.render(req, res, '/login', {flashMessage: `Password is incorrect`});
         }
         //Send JSON web token
-        const token = jwt.sign({id: user._id}, process.env.TOKEN_SECRET);
-        res.header('auth-token', token)
-        return app.render(req, res, '/', {flashMessage: `Welcome ${user.email}`, authToken: token});
+        const token = jwt.sign({id: user._id}, process.env.TOKEN_SECRET, {
+            expiresIn: '1h'
+        });
+        res.cookie('token', token);
+        return app.render(req, res, '/cart', {flashMessage: `Welcome ${user.email}`, authToken: token});
     });
 
     

@@ -5,6 +5,7 @@ import Layout from './layout'
 import { useState, useEffect } from 'react';
 import React from 'react';
 import BuyItem from './components/buyItem';
+import { SuccessFlash } from './components/flashMessage';
 
 
 const Index = (props) => { 
@@ -20,7 +21,12 @@ const Index = (props) => {
         <Layout>
             {(parent) => 
             <div>
-                <h1 className="position-relative fixed-top">{props.query.flashMessage}</h1>
+                
+                <SuccessFlash 
+                    message={props.query.flashMessage} 
+                    class="text-center" 
+                    visible={true}
+                />
 
                 <Container>
                     <Row>

@@ -8,9 +8,14 @@ const CartList = (props) => {
     return (
         <div>
             <Button onClick={() => props.reduxClearItems()} variant="outline-danger">Clear Cart</Button>
-            { props.items && props.items.map((item, i) => 
+            { props.items.length > 0 ? props.items.map((item, i) => 
                 <CartItem key={i} {...item} index={i} reduxClearItem={props.reduxClearItem}/>
-            )}
+            ) 
+            :
+            <div className="d-flex justify-content-center">
+                <h2>Cart is empty</h2>
+            </div>
+            }
         </div>
     )
 }

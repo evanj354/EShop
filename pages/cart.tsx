@@ -7,6 +7,7 @@ import { store } from "./store/store";
 
 
 const Cart = (props) => {
+    console.log('CART PROPS', props);
     return (
         <Layout>
             {(parent) => 
@@ -23,6 +24,9 @@ const Cart = (props) => {
     )
 }
 
+Cart.getInitialProps = async (context) => {
+    let query = context.query;
+    return {query};
+}
 
 export default Cart;
-// export default connect(null, mapDispatchToProps)(Cart);
