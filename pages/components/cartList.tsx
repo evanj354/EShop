@@ -1,13 +1,31 @@
 import { connect } from 'react-redux';
 import CartItem from './cartItem';
 import { clearItems, clearItem } from '../actions/cart';
+import { login } from '../actions/auth';
 import { Button } from 'react-bootstrap';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 const CartList = (props) => {
-    console.log("Items, ", props.items);
+    
+    const handleSaveCart = () => {
+        console.log("SAVE CART ITEMS: ", props.items);
+        axios.post('/cart/addAll', {
+            items: props.items
+        });
+    }
+
+    useEffect(() => {
+        props.reduxAuthenticate();
+    }, [])
+
     return (
         <div>
-            <Button onClick={() => props.reduxClearItems()} variant="outline-danger">Clear Cart</Button>
+            <div className="d-flex justify-content-between">
+                <Button onClick={() => props.reduxClearItems()} variant="outline-danger">Clear Cart</Button>
+                <Button onClick={() => handleSaveCart()} variant="outline-success">Save Cart</Button>
+            </div>
+            
             { props.items.length > 0 ? props.items.map((item, i) => 
                 <CartItem key={i} {...item} index={i} reduxClearItem={props.reduxClearItem}/>
             ) 
@@ -29,7 +47,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         reduxClearItem: (index) => { dispatch(clearItem(index)); },
-        reduxClearItems: () => { dispatch(clearItems()); }
+        reduxClearItems: () => { dispatch(clearItems()); },
+        reduxAuthenticate: () => { dispatch(login()); }
     };
 };
 

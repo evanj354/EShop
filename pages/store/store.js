@@ -13,6 +13,7 @@ const persistConfig = {
     whitelist: [
         'authReducer',
         'cartReducer',
+        'searchReducer',
     ],
     stateReconciler: hardSet
 }
@@ -28,6 +29,7 @@ let persistor = persistStore(store);
 //Subscribe a method to the store so each time an action is dispatched against the store the function is called
 store.subscribe(() => {
     console.log('Cart Items: ', store.getState());
+    console.log('SearchItems: ', store.getState())
 })
 
 export {store, persistor};

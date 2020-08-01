@@ -4,12 +4,25 @@ import { addItem }from '../actions/cart';
 import { connect } from "react-redux";
 import { useState } from "react";
 import { SuccessFlash } from './flashMessage';
+// import dotenv from 'dotenv';
+import axios from "axios";
+
 
 
 const BuyItem = (props) => {
     const [showFlash, updateShowFlash] = useState(false);
 
     const handleAdd = () => {
+        console.log('ADD: ', {...props});
+        // axios.post('/cart/add', {  
+        //     ...props
+        // })
+        // .then((response) => {
+        //     console.log('RESPONSE: ', response);
+        // }, (err) => {
+        //     console.log('Error: ', err);
+        // });
+
         props.reduxAddItem({...props})
         updateShowFlash(true);
         setTimeout(()=>{updateShowFlash(false)}, 1000);

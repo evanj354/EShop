@@ -1,6 +1,6 @@
 
 const initialState = {
-    currentUser: false,
+    loggedIn: false,
 };
 
 const authReducer = (state=initialState, action) => {
@@ -8,7 +8,13 @@ const authReducer = (state=initialState, action) => {
         case 'LOGIN': {
             return {
                 ...state, 
-                currentUser: action.trueFalse
+                loggedIn: action.trueFalse
+            }
+        }
+        case 'LOGOUT': {
+            return {
+                ...state,
+                loggedIn: action.trueFalse
             }
         }
         default: {

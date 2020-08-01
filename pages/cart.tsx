@@ -2,12 +2,19 @@ import { Form, FormGroup, FormLabel, FormControl, FormText, Button, Alert, Col }
 import CartList from "./components/cartList";
 import Layout from "./layout";
 import { clearItems } from "./actions/cart";
+import { login } from './actions/auth';
 import { connect } from "react-redux";
 import { store } from "./store/store";
+import { useEffect } from "react";
+import Router from "next/router";
 
 
 const Cart = (props) => {
-    console.log('CART PROPS', props);
+
+    useEffect(() => {
+        Router.push('/cart', '/cart', {shallow: true});
+    }, []);
+
     return (
         <Layout>
             {(parent) => 
@@ -28,5 +35,8 @@ Cart.getInitialProps = async (context) => {
     let query = context.query;
     return {query};
 }
+
+
+
 
 export default Cart;

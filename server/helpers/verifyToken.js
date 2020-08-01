@@ -1,8 +1,15 @@
 const jwt = require('jsonwebtoken');
 const app = require('../server');
 
+
+module.exports = function(req, res, next) {
+    const user = req.session.userID;
+    
+}
+
 module.exports = function(req, res, next){
-    const token = req.cookies.token;
+    const token = req.session.userID;
+    console.log('token: ', token);
     if (!token) return app.render(req, res, '/login', {flashMessage: 'Login Required to view page'});
 
     try {

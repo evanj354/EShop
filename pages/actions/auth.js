@@ -1,4 +1,9 @@
-export const login = (trueFalse) => ({
+export const login = () => ({
     type: 'LOGIN',
-    trueFalse: trueFalse
+    trueFalse: true
 });
+
+export const logout = () => ({
+    type: 'LOGOUT',
+    trueFalse: false
+})

@@ -1,7 +1,9 @@
 import { Button } from "react-bootstrap";
 import { clearItem } from "../actions/cart";
+import { connect } from "react-redux";
+import { store } from "../store/store";
 
-const cartItem = ({ name, url, price, imgurl, index, reduxClearItem}) => {
+const CartItem = ({ name, url, price, imgurl, index, reduxClearItem}) => {
     return (
         <div>
             <div className="d-flex flex-column m-5 card card-body">
@@ -17,10 +19,12 @@ const cartItem = ({ name, url, price, imgurl, index, reduxClearItem}) => {
     )
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         reduxClearItem: (index) => { dispatch(clearItem(index)); }
-//     }
-// }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        reduxClearItem: (index) => { dispatch(clearItem(index)); }
+    }
+}
 
-export default cartItem;
+
+export default connect(null, mapDispatchToProps)(CartItem);
+// export default cartItem;

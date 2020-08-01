@@ -28,7 +28,8 @@ router.post('/', async (req, res) => {
 
     const user = new User({
         email: req.body.email,
-        password: hashedPassword
+        password: hashedPassword,
+        items: []
     });
     try {
         const savedUser = await user.save();
