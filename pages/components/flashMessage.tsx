@@ -1,7 +1,16 @@
 import { Alert } from "react-bootstrap";
+import { useEffect, useState } from "react";
 
 const SuccessFlash = (props) => {
-    //Props: message, class, visible
+    //Props: message, class, visible, timeout
+    const [visible, updateVisibility] = useState(false);
+
+
+    // useEffect(() => {
+    //     updateVisibility(props.visibility);
+    //     setTimeout(() => {updateVisibility(false)}, props.timeout);
+    // }, [])
+
     return (
         <div>
             { props.message && (

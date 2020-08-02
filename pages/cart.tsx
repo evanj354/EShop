@@ -15,6 +15,10 @@ const Cart = (props) => {
         Router.push('/cart', '/cart', {shallow: true});
     }, []);
 
+    useEffect(() => {
+       console.log('NEW PROPS, ', props.query.flashMessage);
+    }, [props.query.flashMessage])
+
     return (
         <Layout>
             {(parent) => 
@@ -23,7 +27,7 @@ const Cart = (props) => {
                     <div>
                     </div>
                     <Col md={6} className="mx-auto">
-                        <CartList/>
+                        <CartList flashMessage={props.query.flashMessage}/>
                     </Col>
                 </div>
             }   

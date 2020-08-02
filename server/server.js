@@ -34,7 +34,7 @@ app.prepare().then(() => {
         store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
         secret: process.env.SESSION_SECRET,
         cookie: {
-            maxAge: 60000
+            maxAge: 600000
         },
         name: 'redis_session_id'
     }));
