@@ -10,6 +10,9 @@ const cartReducer = (state=initialState, action) => {
         case 'ADD_ITEM': {
             return { cart: [...state.cart, action.item]} ;
         }
+        case 'UPDATE_ITEMS': {
+            return { cart: [...action.items]};
+        }
         case 'CLEAR_ITEM':  {
             return { cart: state.cart.filter( (item, index) => index !== action.index ) }
         }

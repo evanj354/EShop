@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CartItem from './cartItem';
-import { clearItems, clearItem } from '../actions/cart';
+import { clearItems, clearItem, updateItems } from '../actions/cart';
 import { login } from '../actions/auth';
 import { Button } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
@@ -18,12 +18,22 @@ const CartList = (props) => {
             updateShowFLash(true);
             setTimeout(() => {updateShowFLash(false)}, 1000);
         })
+    }
 
+    
+
+    const loadCart = () => {
+        axios.get('/cart/getAll')
+        .then((response) => {
+            console.log('LOAD ITEMS ', response.data.items);
+            props.reduxUpdateItems(response.data.items);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
     }
 
     useEffect(() => {
-        console.log("PROPS: ", props);
-
         props.reduxAuthenticate();
     }, [])
 
@@ -31,6 +41,8 @@ const CartList = (props) => {
         <div>
             <div className="d-flex justify-content-between">
                 <Button onClick={() => props.reduxClearItems()} variant="outline-danger">Clear Cart</Button>
+                <Button onClick={() => loadCart()} variant="outline-primary">Load Cart</Button>
+
                 <Button onClick={() => handleSaveCart()} variant="outline-success">Save Cart</Button>
             </div>
             <SuccessFlash message="Items Saved to Cart" class="mt-3" visible={showFlash} timeout={1000}/>
@@ -55,6 +67,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         reduxClearItem: (index) => { dispatch(clearItem(index)); },
+        reduxUpdateItems: (items) => { dispatch(updateItems(items)); },
         reduxClearItems: () => { dispatch(clearItems()); },
         reduxAuthenticate: () => { dispatch(login()); }
     };

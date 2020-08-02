@@ -46,7 +46,7 @@ class Login extends React.Component {
         <Layout>
             {(parent) => 
                 <div className="mt-5">
-                    {console.log("Parent ", parent)}
+                    
                     <Form className="container card card-body rounded col-md-6 m-auto d-flex flex-column" action="/login" method="post">
                         <h1>Login Here</h1> 
                         <FormGroup controlId="formEmail">

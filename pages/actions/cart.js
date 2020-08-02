@@ -1,7 +1,12 @@
 export const addItem = (item) => ({
-        type: 'ADD_ITEM',
-        item: item
+    type: 'ADD_ITEM',
+    item: item
 });
+
+export const updateItems = (items) => ({
+    type: 'UPDATE_ITEMS',
+    items: items
+})
 
 export const clearItem = (index) => ({
     type: 'CLEAR_ITEM',

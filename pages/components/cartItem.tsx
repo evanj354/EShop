@@ -11,7 +11,7 @@ const CartItem = ({ name, url, price, imgurl, index, reduxClearItem}) => {
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <a className="mb-3" href={url}>
-                    <img src={imgurl} alt="Amazon.com"></img>
+                    <img className="img-fluid" src={imgurl} alt="Amazon.com"></img>
                 </a>
                 <h3>{price}</h3>
             </div>

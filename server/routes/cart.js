@@ -3,8 +3,8 @@ const express = require('express');
 const router = express.Router();
 const app = require('../server');
 const db = require('../models');
-const Item = require('../models/Item');
 const User = require('../models/User');
+const Item = require('../models/Item');
 const jwt = require('jsonwebtoken');
 const redirect = require('../helpers/redirectAuth');
 
@@ -16,7 +16,6 @@ router.get('/', redirect, (req, res) => {
 
 const createItem = async function(userID, item) {
     const newItem = new db.Item({...item});
-    console.log('NEW ITEM, ', newItem);
     await newItem.save();
     const userUpdate = await db.User.findByIdAndUpdate(
         userID,
@@ -25,6 +24,8 @@ const createItem = async function(userID, item) {
     )
     await userUpdate.save();
 }
+
+
 
 // const createItem = function(userId, item) {
 //     return db.Item.create(item).then(newItem => {
@@ -40,7 +41,6 @@ router.post('/add', (req, res) => {
     const item = req.body;
     console.log('Client Token, ', req.cookies.token);
     let user = jwt.verify(req.cookies.token, process.env.TOKEN_SECRET);
-    console.log('ITEM TO ADD ', {...item});
     createItem(user.id, {
         ...item
     });
@@ -50,8 +50,6 @@ router.post('/add', (req, res) => {
 router.post('/addAll', redirect, (req, res) => {
     const items = req.body.items;
     const user = req.session.userID;
-    console.log('ITEMS, ', items);
-    console.log('USER, ', user);
     if(user) {
         items.forEach(item => {
             createItem(user, {...item})
@@ -59,6 +57,19 @@ router.post('/addAll', redirect, (req, res) => {
     }
 
     return app.render(req, res, '/cart', {flashMessage: `${items.length} items saved to cart`})
-})
+});
+
+router.get('/getAll', redirect, (req, res) => {
+    console.log("SESSIONID: ", req.session.userID);
+    User
+        .findOne({ _id: req.session.userID })
+        .populate('items')
+        .exec( function(err, user) {
+            if (err) return err;
+            res.send({items: user.items});
+        });
+
+    
+}) 
 
 module.exports = router;
