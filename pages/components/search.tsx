@@ -20,7 +20,7 @@ const Search = (props) => {
         if(props.newItems[0]) {
             updateItems(props.newItems[0]);
             props.reduxUpdateSearch({
-                "searchField": "laptop",
+                "searchField": "",
                 "items": props.newItems[0]
             })
                 

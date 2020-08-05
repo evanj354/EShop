@@ -31,7 +31,9 @@ const ShopNavbar = (props) => {
 
     useEffect(() => {
        updateAuthButton(props.authenticated);
-    },[props.authenticated])
+    },[props.authenticated]);
+
+    
     return (
         <div>
             <Navbar bg="dark" className="container-fluid">

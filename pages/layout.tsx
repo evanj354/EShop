@@ -17,7 +17,7 @@ const Layout = (props) => {
 
     
     const handleSubmit = (event) => {
-        updateSearchResults([])
+        updateSearchResults([]);
         event.preventDefault();
         axios.post('/search',
             {
@@ -27,7 +27,6 @@ const Layout = (props) => {
         .then((response) => {
             console.log(`Response: ${response}`);
             updateSearchResults([response.data.searchResults]);
-            // props.updateSearch([response.data.searchResults]);
             
         }, (error) => {
             console.log(error);

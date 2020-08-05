@@ -4,10 +4,44 @@ const searchRouter = express.Router();
 const cheerio = require('cheerio');
 const lodash = require('lodash');
 
-const url = 'https://www.amazon.com/s?k='
+const amazonUrl = 'https://www.amazon.com/s?k=';
 
-searchRouter.post('/', async (req, res) => {
-    const searchUrl = url+req.body.searchField;
+const walmartUrl = 'https://www.walmart.com/search/?query=';
+
+
+const getWalmartResults = async (searchField) => {
+    const searchUrl = walmartUrl+searchField;
+    try {
+        const response = await axios.get(searchUrl);
+        const html = response.data;
+        const $ = cheerio.load(html);
+
+        let images = [];
+        let names = [];
+        let urls = [];
+        let prices = [];
+
+        
+
+        $(".search-result-gridview-item-wrapper").each((i, item) => {
+            images.push($(item).find('img').attr('data-image-src'));
+            names.push($(item).find('img').attr('alt'));
+            urls.push('https://walmart.com/'+$(item).find('a.search-result-productimage').attr('href'));
+            prices.push($(item).find('span.price.display-inline-block.arrange-fit.price span.visuallyhidden').first().text());
+        })
+        
+        a = lodash.zip(prices, images, names, urls);
+        return a;
+    }
+    catch(err) {
+        console.log(err);
+        res.json({Error: err});
+    }
+}
+
+
+const getAmazonResults = async (searchField) => {
+    const searchUrl = amazonUrl+searchField;
     try {
         const response = await axios.get(searchUrl);
         const html = response.data;
@@ -36,13 +70,22 @@ searchRouter.post('/', async (req, res) => {
         })
 
         a = lodash.zip(prices, images, names, urls);
-        res.json({ searchResults: a });
+        return a;
         // const respondse = await axios.get(searchUrl);
     }
     catch(err) {
         console.log(err);
         res.json({ searchResults: ['Err'] });
     }
+}
+
+searchRouter.post('/:searchField', async (req, res) => {
+    const walmartResults = getWalmartResults(req.params.searchField);
+    const amazonResults = getAmazonResults(req.params.searchField);
+    const results = await Promise.all([walmartResults, amazonResults]);
+
+    res.json({resultsLeft: results[0], resultsRight: results[1]});
+    
 });
 
 module.exports = searchRouter;
