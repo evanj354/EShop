@@ -80,9 +80,14 @@ const getAmazonResults = async (searchField) => {
 }
 
 searchRouter.post('/:searchField', async (req, res) => {
-    const walmartResults = getWalmartResults(req.params.searchField);
-    const amazonResults = getAmazonResults(req.params.searchField);
-    const results = await Promise.all([walmartResults, amazonResults]);
+    const fieldDict = {
+        'Amazon': getAmazonResults,
+        'Walmart': getWalmartResults
+    }
+
+    const leftResults = fieldDict[req.body.searchField[0]](req.params.searchField);
+    const rightResults = fieldDict[req.body.searchField[1]](req.params.searchField);
+    const results = await Promise.all([leftResults, rightResults]);
 
     res.json({resultsLeft: results[0], resultsRight: results[1]});
     

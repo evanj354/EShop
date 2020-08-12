@@ -29,6 +29,7 @@ router.post('/', (req, res) => {
             expiresIn: '1h'
         });
         req.session.userID = user._id;
+        req.session.username = user.email;
         return app.render(req, res, '/cart', {flashMessage: `Welcome ${user.email}`, authToken: token});
     });
 

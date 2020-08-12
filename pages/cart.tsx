@@ -23,7 +23,7 @@ const Cart = (props) => {
         <Layout>
             {(parent) => 
                 <div className="d-flex flex-column align-items-center">
-                    <h1>Cart</h1>
+                    <h1>{props.query.flashMessage}'s Cart</h1>
                     <div>
                     </div>
                     <Col md={6} className="mx-auto">

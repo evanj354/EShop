@@ -24,7 +24,7 @@ const Index = (props) => {
     return (
         <Layout>
             {(parent) => 
-                    <Search flashMessage={props.query.flashMessage} newItems={parent[0]} searchField={parent[1]} />
+                    <Search flashMessage={props.query.flashMessage} searchData={parent} />
             }
         </Layout>
     );

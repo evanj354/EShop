@@ -11,7 +11,7 @@ const redirect = require('../helpers/redirectAuth');
 
 router.get('/', redirect, (req, res) => {
     console.log('Authenticated, ', req.session.userID);
-    return app.render(req, res, '/cart', {flashMessage: 'Cart'})
+    return app.render(req, res, '/cart', {flashMessage: req.session.username})
 })
 
 const createItem = async function(userID, item) {

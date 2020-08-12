@@ -5,11 +5,16 @@ const jwt = require('jsonwebtoken');
 const app = require('../server');
 
 const User = require('../models/User');
+const session = require('express-session');
 
 router.get('/', (req, res) => {
-    console.log('DeAuthenticating');
+    console.log('DeAuthenticating: ', req.sessionID);
+    // req.session.destroy(function(err) {
+
+    //     res.send(err);
+    // });
     req.session.destroy();
-    return app.render(req, res, '/', req.query);
+    return res.send('Done');
 });
 
 module.exports = router;

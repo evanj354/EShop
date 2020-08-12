@@ -30,6 +30,8 @@ app.prepare().then(() => {
     server.use(cors());
     server.use(express.urlencoded({extended: true}));
     server.use(express.json());
+    server.use(cookieParser());    
+
     server.use(session({
         store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
         secret: process.env.SESSION_SECRET,
@@ -38,7 +40,6 @@ app.prepare().then(() => {
         },
         name: 'redis_session_id'
     }));
-    server.use(cookieParser());    
 
     server.use('/login', login);
 

@@ -31,7 +31,7 @@ const BuyItem = (props) => {
     return (
         <div className="d-flex flex-column m-5">
             <a className="mb-3" href={props.url}>
-                <img src={props.imgurl} alt="Amazon.com"></img>
+                <img className="img-fluid" src={props.imgurl} alt="Amazon.com"></img>
             </a>
             <div className="d-flex flex-column align-items-center justify-content-center">
                 <div>{props.price}</div>

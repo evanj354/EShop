@@ -9,41 +9,34 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import BuyItem from './buyItem';
 import { SuccessFlash } from './flashMessage';
 import { updateSearch } from '../actions/search';
-
+import { StoreFrontDropdown} from './dropdown';
 
 const Search = (props) => { 
-    const [items, updateItems] = useState([]);
+    const [items, updateItems] = useState({resultsLeft: [], resultsRight: []});
 
 
     useEffect(() => {
         Router.push('/', '/', {shallow: true});
-        if(props.newItems[0]) {
-            updateItems(props.newItems[0]);
-            props.reduxUpdateSearch({
-                "searchField": "",
-                "items": props.newItems[0]
-            })
-                
-        }
-        else {
-            updateItems(props.searchItems);
-        }
-    }, [props.newItems]);
+        updateItems(props.searchData.searchResults);
+    }, [props.searchData.searchResults]);
 
 
     return (
   
-                    <div>
-                        <SuccessFlash 
-                            message={props.flashMessage} 
-                            class="text-center" 
-                            visible={true}
-                        />
-                        <Container>
-                            <Row>
-                            {items && items.map((item, i) => 
+        <div>
+            <SuccessFlash 
+                message={props.flashMessage} 
+                class="text-center" 
+                visible={true}
+            />
+            <Container >
+                <Row className="d-flex justify-content-between">
+                    <Col className="mx-5">
+                        <StoreFrontDropdown storeID={0} handleStoreChange={props.searchData.handleStoreChange} storeFronts={props.searchData.storeFronts}/>
+                        <Row>
+                            {items.resultsLeft && items.resultsLeft.map((item, i) => 
                                 {if (item[1]) { return (
-                                    <Col key={i} className="align-items-center card card-body" md={6}>
+                                    <Col key={i} className="align-items-center card card-body" md={12}>
                                         <BuyItem 
                                             price={item[0]} 
                                             imgurl={item[1]}
@@ -53,9 +46,30 @@ const Search = (props) => {
                                 }
                                 }
                             )}
-                            </Row>
-                        </Container>
-                    </div>
+                        </Row>
+                    </Col>
+                    <Col className="mx-5">
+                        <StoreFrontDropdown storeID={1} handleStoreChange={props.searchData.handleStoreChange} storeFronts={props.searchData.storeFronts}/>
+                        <Row>
+                            {items.resultsRight && items.resultsRight.map((item, i) => 
+                                {if (item[1]) { return (
+                                    <Col key={i} className="align-items-center card card-body" md={12}>
+                                        <BuyItem 
+                                            price={item[0]} 
+                                            imgurl={item[1]}
+                                            name={item[2]}
+                                            url={item[3]}/>
+                                    </Col>)
+                                }
+                                }
+                            )}
+                        </Row>
+                    </Col>
+                </Row>
+                
+            </Container>
+            
+        </div>
                     
     );
 }

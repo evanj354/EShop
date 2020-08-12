@@ -18,8 +18,8 @@ const ShopNavbar = (props) => {
         if (props.authenticated) {
             axios.get('/logout')
                 .then((response) => {
-                    console.log('SUCCESSFUL LOGOUT, ', Cookies.get('token'));
                     props.reduxLogout();
+                    window.location.href = '/login';
                 }, (err) => {
                     console.log(err);
                 })

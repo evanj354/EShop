@@ -13,20 +13,26 @@ import ShopNavbar from './components/nav';
 
 const Layout = (props) => {
     const [searchField, updateSearchField] = useState("");
-    const [searchResults, updateSearchResults] = useState([]);
-
+    const [searchResults, updateSearchResults] = useState({});
+    const [storeFronts, updateStoreFronts] = useState(['Amazon', 'Walmart']);
     
+
+    useEffect(() => {
+        console.log('New STORE FRONTS: ', storeFronts)
+    }, [storeFronts])
+
     const handleSubmit = (event) => {
         updateSearchResults([]);
         event.preventDefault();
-        axios.post('/search',
+        axios.post('/search/'+searchField,
             {
-                searchField: searchField
+                searchField: storeFronts
             }
         )
         .then((response) => {
-            console.log(`Response: ${response}`);
-            updateSearchResults([response.data.searchResults]);
+            console.log(`Response: ${response.data}`);
+            updateSearchResults(response.data);
+            console.log('UPDATED RESULTS: ', searchResults);
             
         }, (error) => {
             console.log(error);
@@ -37,6 +43,12 @@ const Layout = (props) => {
         input(event.target.value);
     }
 
+    const handleStoreChange = (store, index) => {
+        let tempStore = [...storeFronts];
+        console.log('UPDATING: ')
+        tempStore[index] = store;
+        updateStoreFronts(tempStore);
+    }
 
     return (
         <Provider store={store}>
@@ -56,7 +68,7 @@ const Layout = (props) => {
                 </Head>
                 <ShopNavbar updateSearchField={updateSearchField} handleChange={handleChange} handleSubmit={handleSubmit}/>
                 
-                {props.children([searchResults, searchField])}
+                {props.children({searchField: searchField, searchResults: searchResults, handleStoreChange: handleStoreChange, storeFronts: storeFronts})}
             </div>
             </PersistGate>
         </Provider>
