@@ -16,6 +16,8 @@ const port = parseInt(process.env.POST, 10) || 3000;
 const dev = process.env.NODE_ENV !== 'production';
 const app = module.exports = next({ dev });
 const handle = app.getRequestHandler();
+const stripeSecretKey = process.env.STRIP_SECRET_KEY;
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
 
 const { login, logout, register, search, cart } = require('./routes/index');
 
