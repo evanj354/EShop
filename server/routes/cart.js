@@ -60,7 +60,6 @@ router.post('/addAll', redirect, (req, res) => {
 });
 
 router.get('/getAll', redirect, (req, res) => {
-    console.log("SESSIONID: ", req.session.userID);
     User
         .findOne({ _id: req.session.userID })
         .populate('items')
@@ -71,5 +70,10 @@ router.get('/getAll', redirect, (req, res) => {
 
     
 }) 
+
+router.post('/checkout', (req, res) => {
+    console.log('Checkout Time');
+    
+})
 
 module.exports = router;

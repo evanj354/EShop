@@ -33,6 +33,10 @@ const CartList = (props) => {
         })
     }
 
+    const checkoutCart = () => {
+
+    }
+
     useEffect(() => {
         props.reduxAuthenticate();
     }, [])
@@ -42,7 +46,7 @@ const CartList = (props) => {
             <div className="d-flex justify-content-between">
                 <Button onClick={() => props.reduxClearItems()} variant="outline-danger">Clear Cart</Button>
                 <Button onClick={() => loadCart()} variant="outline-primary">Load Cart</Button>
-
+                <Button onClick={() => checkoutCart()} variant="outline-info">Checkout</Button>
                 <Button onClick={() => handleSaveCart()} variant="outline-success">Save Cart</Button>
             </div>
             <SuccessFlash message="Items Saved to Cart" class="mt-3" visible={showFlash} timeout={1000}/>

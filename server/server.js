@@ -18,6 +18,8 @@ const app = module.exports = next({ dev });
 const handle = app.getRequestHandler();
 const stripeSecretKey = process.env.STRIP_SECRET_KEY;
 const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
+const stripe = require('stripe')(stripeSecretKey);
+
 
 const { login, logout, register, search, cart } = require('./routes/index');
 
