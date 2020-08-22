@@ -9,7 +9,9 @@ const reactViews = require('express-react-views');
 const axios = require('axios').default;
 const redis = require('redis');
 const redisStore = require('connect-redis')(session);
-const redisClient = redis.createClient(6379);
+const redisClient = redis.createClient({
+    host: process.env.REDIS_HOST
+});
 require('dotenv/config');
 
 const port = parseInt(process.env.POST, 10) || 3000;
@@ -26,6 +28,7 @@ const { login, logout, register, search, cart } = require('./routes/index');
 
 app.prepare().then(() => {
     const server = express();
+    console.log("REDIS HOST: ", process.env.REDIS_HOST);
 
     server.set('views', __dirname+'/../pages');
     server.set('view engine', 'js');
@@ -37,7 +40,7 @@ app.prepare().then(() => {
     server.use(cookieParser());    
 
     server.use(session({
-        store: new redisStore({ host: 'localhost', port: 6379, client: redisClient }),
+        store: new redisStore({ host: process.env.REDIS_HOST, client: redisClient, port: 6379 }),
         secret: process.env.SESSION_SECRET,
         cookie: {
             maxAge: 600000
