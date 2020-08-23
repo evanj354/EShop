@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import CartItem from './cartItem';
 import { clearItems, clearItem, updateItems } from '../actions/cart';
 import { login } from '../actions/auth';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SuccessFlash } from './flashMessage';
@@ -17,6 +17,8 @@ const CardContainer = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
+    min-width: 20rem;
+    margin-bottom: 1rem;
 
     & .StripeElement {
         width: 100%;
@@ -50,8 +52,20 @@ const CartList = (props) => {
         })
     }
 
-    const checkoutCart = () => {
+    const handleCheckout = async (event) => {
+        event.preventDefault();
+        console.log("FOrm SUBMIT: ", event.target.name.value);
 
+        const billingDetails = {
+            name: event.target.name.value,
+            email: event.target.email.value,
+            address: {
+                line: event.target.address.value,
+                city: event.target.city.value,
+                state: event.target.state.value,
+                postal_code: event.target.zip.value
+            }
+        }
     }
 
     useEffect(() => {
@@ -75,30 +89,56 @@ const CartList = (props) => {
             </div>
            
             }
-             <div className=" d-flex flex-column justify-content-center align-items-center card card-body">
+             <div className="d-flex flex-column bg-secondary justify-content-center align-items-center card card-body">
                 <Elements stripe={stripePromise}>
-                    <CardContainer>
-                        <CardElement 
-                                options={{
-                                    style: {
-                                        base: {
-                                            fontSize: '16px',
-                                            color: '000',
-                                            '::placeholder': {
-                                            color: '000',
+                    <Form className="d-flex text-light flex-column"onSubmit={handleCheckout}>
+                        <Form.Group>
+                            <Form.Label>Full Name</Form.Label>
+                            <Form.Control name="name" placeholder="Jane Doe"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control name="email" type="email" placeholder="example@gmail.com"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control name="address" placeholder="1234 Apple Way"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>City</Form.Label>
+                            <Form.Control name="city" placeholder="San Francisco"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>State</Form.Label>
+                            <Form.Control name="state" placeholder="California"/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Zip</Form.Label>
+                            <Form.Control name="zip" placeholder="94040"/>
+                        </Form.Group>
+                        <CardContainer>
+                            <CardElement 
+                                    options={{
+                                        style: {
+                                            base: {
+                                                fontSize: '16px',
+                                                color: 'white',
+                                                '::placeholder': {
+                                                color: 'white',
+                                                },
+                                                iconColor: 'white',
                                             },
-                                    
+                                            invalid: {
+                                                color: '#9e2146',
+                                            },
                                         },
-                                        invalid: {
-                                            color: '#9e2146',
-                                        },
-                                    },
-                                }}
-                            ></CardElement>
-                    </CardContainer>
-                        
+                                    }}
+                                ></CardElement>
+                        </CardContainer>
+                        <Button className="font-weight-bold" variant="outline-info" type="submit">Checkout</Button>
+                    </Form>
                     <h2>Total: $25</h2>
-                    <Button onClick={() => checkoutCart()} variant="outline-info">Checkout</Button>
+                    
                 </Elements>
 
             </div>
