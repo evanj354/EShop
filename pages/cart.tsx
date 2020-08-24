@@ -7,6 +7,11 @@ import { connect } from "react-redux";
 import { store } from "./store/store";
 import { useEffect } from "react";
 import Router from "next/router";
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
+
+const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
 
 
 const Cart = (props) => {
@@ -27,7 +32,9 @@ const Cart = (props) => {
                     <div>
                     </div>
                     <Col md={6} className="mx-auto">
-                        <CartList flashMessage={props.query.flashMessage}/>
+                        <Elements stripe={stripePromise}>
+                            <CartList flashMessage={props.query.flashMessage}/>
+                        </Elements>
                     </Col>
                 </div>
             }   

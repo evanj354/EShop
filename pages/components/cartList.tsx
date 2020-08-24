@@ -7,11 +7,10 @@ import { Button, Form } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { SuccessFlash } from './flashMessage';
-import {Elements, CardElement} from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
+import {useElements, useStripe, Elements, CardElement} from '@stripe/react-stripe-js';
 
 
-const stripePromise = loadStripe(process.env.STRIPE_PUBLIC_KEY);
+ 
 const CardContainer = styled.div`
     height: 100%;
     display: flex;
@@ -28,6 +27,8 @@ const CardContainer = styled.div`
 
 const CartList = (props) => {
     let [showFlash, updateShowFLash] = useState(false);
+    const elements = useElements();
+
     
     const handleSaveCart = () => {
         axios.post('/cart/addAll', {
@@ -73,7 +74,9 @@ const CartList = (props) => {
             }
         )
         .then((response) => {
-            console.log('CLIENT SECRET: ',response);
+            const client_secret = response.data;
+            const cardElement = elements.getElement(CardElement);
+            console.log(client_secret);
         }, (error) => {
             console.log(error);
         })
@@ -103,7 +106,6 @@ const CartList = (props) => {
            
             }
              <div className="d-flex flex-column bg-secondary justify-content-center align-items-center card card-body">
-                <Elements stripe={stripePromise}>
                     <Form className="d-flex text-light flex-column"onSubmit={handleCheckout}>
                         <Form.Group>
                             <Form.Label>Full Name</Form.Label>
@@ -152,7 +154,6 @@ const CartList = (props) => {
                     </Form>
                     <h2>Total: $25</h2>
                     
-                </Elements>
 
             </div>
         </div>
