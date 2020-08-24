@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const redirect = require('../helpers/redirectAuth');
 
 
+
 router.get('/', redirect, (req, res) => {
     console.log('Authenticated, ', req.session.userID);
     return app.render(req, res, '/cart', {flashMessage: req.session.username})
@@ -71,9 +72,5 @@ router.get('/getAll', redirect, (req, res) => {
     
 }) 
 
-router.post('/checkout', (req, res) => {
-    console.log('Checkout Time');
-    
-})
 
 module.exports = router;

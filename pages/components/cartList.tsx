@@ -66,9 +66,22 @@ const CartList = (props) => {
                 postal_code: event.target.zip.value
             }
         }
+
+        axios.post('/checkout', 
+            {
+                amount: 500
+            }
+        )
+        .then((response) => {
+            console.log('CLIENT SECRET: ',response);
+        }, (error) => {
+            console.log(error);
+        })
+
     }
 
     useEffect(() => {
+        console.log('CARTLIST PROPS: ', props);
         props.reduxAuthenticate();
     }, [])
 
