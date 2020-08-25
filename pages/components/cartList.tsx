@@ -74,7 +74,7 @@ const CartList = (props) => {
                 />
             </div>
 
-            <SuccessFlash message="Items Saved to Cart" className="mt-2" visible={showFlash} timeout={1000}/>
+            <SuccessFlash message="Items Saved to Cart" className="mt-2" visible={showFlash}/>
             { props.items.length > 0 ? props.items.map((item, i) => 
                 <CartItem key={i} {...item} index={i} reduxClearItem={props.reduxClearItem}/>
             ) 
