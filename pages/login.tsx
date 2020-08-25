@@ -9,7 +9,7 @@ import axios from 'axios';
 const url = 'http://localhost:3000/';
 
 
-class Login extends React.Component {
+class Login extends React.Component<{ query: {flashMessage: string} }, {}> {
     constructor(props) {
         super(props);
         this.state = {

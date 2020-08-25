@@ -3,7 +3,7 @@ import Layout from './layout';
 import React from "react";
 
 
-class Register extends React.Component {
+class Register extends React.Component<{ query: {flashMessage: string} }, {}> {
     constructor(props) {
         super(props)
         this.state = {
