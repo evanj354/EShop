@@ -30,7 +30,7 @@ const Search = (props) => {
         <div>
             <SuccessFlash 
                 message={props.flashMessage} 
-                class="text-center" 
+                className="text-center" 
                 visible={true}
             />
             <Container >
