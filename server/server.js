@@ -63,7 +63,7 @@ app.prepare().then(() => {
     })
 
     mongoose.connect(
-        process.env.MONGOAUTH, 
+        process.env.MONGODB || process.env.MONGOAUTH, 
         { useNewUrlParser: true, useUnifiedTopology: true }, 
         () => {
            console.log('connected to the Mongo DB');}

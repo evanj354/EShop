@@ -13,9 +13,10 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     //Validate Schema
+    console.log('IN LOGIN');
     const { err } = loginValidation(req.body);
     if (err) return app.render(req, res, '/login', { flashMessage: err });
-    
+    console.log('PAST FIRST BREAK');
     //Query Database
     const user = User.findOne({email: req.body.email}, async function (err, user) {
         if (err) return app.render(req, res, '/login', {flashMessage: err});
@@ -28,6 +29,7 @@ router.post('/', (req, res) => {
         const token = jwt.sign({id: user._id, sid: req.session.id}, process.env.TOKEN_SECRET, {
             expiresIn: '1h'
         });
+        console.log('GOT USER');
         req.session.userID = user._id;
         req.session.username = user.email;
         return app.render(req, res, '/cart', {flashMessage: `Welcome ${user.email}`, authToken: token});
