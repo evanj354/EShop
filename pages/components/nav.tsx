@@ -33,7 +33,10 @@ const ShopNavbar = (props) => {
        updateAuthButton(props.authenticated);
     },[props.authenticated]);
 
-    
+    useEffect(() => {
+        updateAuthButton(props.authenticated);
+    }, []);
+
     return (
         <div>
             <Navbar bg="dark" className="container-fluid">
@@ -76,6 +79,7 @@ const mapDispatchToProps = (dispatch) => {
         reduxLogout: () => { dispatch(logout()) }
     };
 }
+
 
 const mapStateToProps = (state) => {
     return {

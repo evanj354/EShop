@@ -18,8 +18,8 @@ const Layout = (props) => {
     
 
     useEffect(() => {
-        console.log('New STORE FRONTS: ', storeFronts)
-    }, [storeFronts])
+        
+    }, [])
 
     const handleSubmit = (event) => {
         updateSearchResults([]);

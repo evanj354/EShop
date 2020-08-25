@@ -17,6 +17,11 @@ const Search = (props) => {
 
     useEffect(() => {
         Router.push('/', '/', {shallow: true});
+        console.log('Before UPDATE: ', props.searchData.searchField);
+        console.log('RREDUCE BEFORE UPDATE: ', props.searchItems);
+        props.reduxUpdateSearch({searchField: props.searchData.searchField, items: props.searchData.searchResults});
+        
+        console.log('SEARCH ITEM: ', props.searchItems[0]);
         updateItems(props.searchData.searchResults);
     }, [props.searchData.searchResults]);
 

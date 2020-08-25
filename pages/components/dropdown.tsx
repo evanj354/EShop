@@ -13,7 +13,7 @@ const StoreFrontDropdown = (props) => {
     }
 
     return (
-        <div className="d-flex justify-content-center my-2">
+        <div className="d-flex justify-content-center py-4">
             <DropdownButton id="dropdown-basic-button" variant="outline-info" title={props.storeFronts[props.storeID]}>
                 {storeFronts.map((item) => {
                     if(item != props.storeFronts[props.storeID]) {

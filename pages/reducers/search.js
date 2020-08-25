@@ -3,18 +3,24 @@ import { useReducer } from "react";
 
 const initialState = {
     searchField: "",
-    currentItems: [],
+    currentItems: {resultsLeft: [], resultsRight: []},
 };
 
 const searchReducer = (state=initialState, action) => {
+
     switch(action.type) {
         case 'UPDATE': {
+            console.log('REDUX UPDATING, ', action.payload.items);
+            
             return { 
                 searchField: action.payload.searchField,
-                currentItems: [...action.payload.items] 
+                currentItems: [action.payload.items] 
             }
         }
-        default: return state;
+        default: {
+            console.log('BAD');
+            return state;
+        }
     }
 }
 
