@@ -35,7 +35,6 @@ const getWalmartResults = async (searchField) => {
     }
     catch(err) {
         console.log(err);
-        res.json({Error: err});
     }
 }
 
@@ -75,7 +74,6 @@ const getAmazonResults = async (searchField) => {
     }
     catch(err) {
         console.log(err);
-        res.json({ searchResults: ['Err'] });
     }
 }
 

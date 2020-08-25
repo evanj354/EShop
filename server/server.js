@@ -7,11 +7,11 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const reactViews = require('express-react-views');
 const axios = require('axios').default;
-const redis = require('redis');
-const redisStore = require('connect-redis')(session);
-const redisClient = redis.createClient({
-    host: process.env.REDIS_HOST
-});
+// const redis = require('redis');
+// const redisStore = require('connect-redis')(session);
+// const redisClient = redis.createClient({
+//     host: process.env.REDIS_HOST
+// });
 require('dotenv/config');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -37,7 +37,7 @@ app.prepare().then(() => {
     server.use(cookieParser());    
 
     server.use(session({
-        store: new redisStore({ host: process.env.REDIS_HOST, client: redisClient, port: 6379 }),
+        // store: new redisStore({ host: process.env.REDIS_HOST, client: redisClient, port: 6379 }),
         secret: process.env.SESSION_SECRET,
         cookie: {
             maxAge: 600000
