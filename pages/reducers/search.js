@@ -9,16 +9,13 @@ const initialState = {
 const searchReducer = (state=initialState, action) => {
 
     switch(action.type) {
-        case 'UPDATE': {
-            console.log('REDUX UPDATING, ', action.payload.items);
-            
+        case 'UPDATE': {            
             return { 
                 searchField: action.payload.searchField,
                 currentItems: [action.payload.items] 
             }
         }
         default: {
-            console.log('BAD');
             return state;
         }
     }

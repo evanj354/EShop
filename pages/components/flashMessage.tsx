@@ -1,15 +1,13 @@
 import { Alert } from "react-bootstrap";
 import { useEffect, useState } from "react";
 
-const SuccessFlash = (props) => {
+const SuccessFlash = ({message, className, visible}) => {
     //Props: message, class, visible, timeout
-    const [visible, updateVisibility] = useState(false);
-
     return (
         <div>
-            { props.message && (
-                <Alert className={props.class} show={props.visible} variant="success">
-                    <p style={{marginBottom: 0}}>{props.message}</p>
+            { message && (
+                <Alert className={className} show={visible} variant="success">
+                    <p style={{marginBottom: 0}}>{message}</p>
                 </Alert>
             )
             }
@@ -17,12 +15,12 @@ const SuccessFlash = (props) => {
     )
 }
 
-const DangerFlash = (props) => {
+const DangerFlash = ({message}) => {
     return (
         <div>
-            { props.message && (
+            { message && (
                 <Alert variant="danger">
-                    <p style={{marginBottom: 0}}>{props.message}</p>
+                    <p style={{marginBottom: 0}}>{message}</p>
                 </Alert>
             )
             }

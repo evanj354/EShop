@@ -11,8 +11,7 @@ import { connect } from 'react-redux';
 
 
 const ShopNavbar = (props) => {
-    let [authButton, updateAuthButton] = useState(false);
-
+    let [authenticated, updateAuthentication] = useState(false);
 
     const handleAuthenticate = () => {
         if (props.authenticated) {
@@ -30,12 +29,12 @@ const ShopNavbar = (props) => {
     }
 
     useEffect(() => {
-       updateAuthButton(props.authenticated);
+       updateAuthentication(props.authenticated);
     },[props.authenticated]);
 
-    useEffect(() => {
-        updateAuthButton(props.authenticated);
-    }, []);
+    // useEffect(() => {
+    //     updateAuthButton(props.authenticated);
+    // }, []);
 
     return (
         <div>
@@ -59,7 +58,7 @@ const ShopNavbar = (props) => {
                             size="sm" variant="outline-info" 
                             onClick={() => handleAuthenticate()}
                             >
-                                {props.authenticated ? 'Logout' : 'Login'}
+                                {authenticated ? 'Logout' : 'Login'}
                         </Button>
                     </Nav>
                 </Col>

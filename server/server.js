@@ -19,10 +19,6 @@ const dev = process.env.NODE_ENV !== 'production';
 const app = module.exports = next({ dev });
 const handle = app.getRequestHandler();
 
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
-const stripe = require('stripe')(stripeSecretKey);
-
 
 const { login, logout, register, search, cart } = require('./routes/index');
 
@@ -59,26 +55,7 @@ app.prepare().then(() => {
     
     server.use('/cart', cart);
 
-    server.post('/checkout', async (req, res) => {
-        try {
-            console.log('BODY: ', req.body);
-            const amount = req.body.amount; 
-            console.log('AMOUNT: ', amount);
-       
-            const paymentIntent = await stripe.paymentIntents.create({
-                amount,
-                currency: "usd"
-            });
-        
-
-            console.log('PASSED');
-            res.send(paymentIntent.client_secret);
-        } catch (err) {
-            console.log(err);
-            res.status(500).json({ message: err.message });
-        }
-       
-    })
+   
     
 
     server.all('*', (req, res) => {

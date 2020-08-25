@@ -13,7 +13,6 @@ const BuyItem = (props) => {
     const [showFlash, updateShowFlash] = useState(false);
 
     const handleAdd = () => {
-        console.log('ADD: ', {...props});
         // axios.post('/cart/add', {  
         //     ...props
         // })
@@ -37,7 +36,7 @@ const BuyItem = (props) => {
                 <div>{props.price}</div>
                 <Button onClick={() => handleAdd()} variant="outline-info">Add to Cart</Button>
             </div>
-            <SuccessFlash class="mt-2" visible={showFlash} message="Item added to Cart"/>  
+            <SuccessFlash className="mt-2" visible={showFlash} message="Item added to Cart"/>  
         </div>
     )
 }

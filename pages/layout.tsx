@@ -15,11 +15,7 @@ const Layout = (props) => {
     const [searchField, updateSearchField] = useState("");
     const [searchResults, updateSearchResults] = useState({});
     const [storeFronts, updateStoreFronts] = useState(['Amazon', 'Walmart']);
-    
-
-    useEffect(() => {
-        
-    }, [])
+ 
 
     const handleSubmit = (event) => {
         updateSearchResults([]);

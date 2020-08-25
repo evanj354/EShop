@@ -8,7 +8,9 @@ const Item = require('../models/Item');
 const jwt = require('jsonwebtoken');
 const redirect = require('../helpers/redirectAuth');
 
-
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
+const stripe = require('stripe')(stripeSecretKey);
 
 router.get('/', redirect, (req, res) => {
     console.log('Authenticated, ', req.session.userID);
@@ -71,6 +73,24 @@ router.get('/getAll', redirect, (req, res) => {
 
     
 }) 
+
+router.post('/checkout', async (req, res) => {
+    try {
+        console.log('BODY: ', req.body);
+        const amount = req.body.amount; 
+        console.log('AMOUNT: ', amount);
+   
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount,
+            currency: "usd"
+        });
+        res.send(paymentIntent.client_secret);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: err.message });
+    }
+   
+})
 
 
 module.exports = router;
