@@ -21,16 +21,13 @@ const Cart = (props) => {
     }, []);
 
     useEffect(() => {
-       console.log('NEW PROPS, ', props.query.flashMessage);
     }, [props.query.flashMessage])
 
     return (
         <Layout>
             {(parent) => 
-                <div className="d-flex flex-column align-items-center">
-                    <h1>{props.query.flashMessage}'s Cart</h1>
-                    <div>
-                    </div>
+                <div className="d-flex flex-column align-items-center text-dark">
+                    <h1 className="rounded p-1">Your Items</h1>
                     <Col md={6} className="mx-auto">
                         <Elements stripe={stripePromise}>
                             <CartList flashMessage={props.query.flashMessage}/>

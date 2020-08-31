@@ -35,11 +35,11 @@ const Search = (props) => {
             />
             <Container >
                 <Row className="d-flex justify-content-between">
-                    <Col className="mx-5">
+                    <Col className="mx-md-5 mx-1">
                         <StoreFrontDropdown storeID={0} handleStoreChange={props.searchData.handleStoreChange} storeFronts={props.searchData.storeFronts}/>
                         <Row>
                             {items.resultsLeft && items.resultsLeft.map((item, i) => 
-                                {if (item[1]) { return (
+                                {if (item[1] && item[0]) { return (
                                     <Col key={i} className="align-items-center card card-body" md={12}>
                                         <BuyItem 
                                             price={item[0]} 
@@ -52,11 +52,11 @@ const Search = (props) => {
                             )}
                         </Row>
                     </Col>
-                    <Col className="mx-5">
+                    <Col className="mx-md-5 mx-1">
                         <StoreFrontDropdown storeID={1} handleStoreChange={props.searchData.handleStoreChange} storeFronts={props.searchData.storeFronts}/>
                         <Row>
                             {items.resultsRight && items.resultsRight.map((item, i) => 
-                                {if (item[1]) { return (
+                                {if (item[1] && item[0]) { return (
                                     <Col key={i} className="align-items-center card card-body" md={12}>
                                         <BuyItem 
                                             price={item[0]} 

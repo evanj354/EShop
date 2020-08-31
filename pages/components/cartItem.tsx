@@ -6,7 +6,7 @@ import { store } from "../store/store";
 const CartItem = ({ name, url, price, imgurl, index, reduxClearItem}) => {
     return (
         <div>
-            <div className="d-flex flex-column m-5 card card-body">
+            <div className="d-flex flex-column m-3 card card-body">
                 <button onClick={() => reduxClearItem(index)} type="button" className="close align-self-end" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

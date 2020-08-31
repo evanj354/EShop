@@ -52,7 +52,6 @@ const CartList = (props) => {
     }, [props.items]);
 
     useEffect(() => {
-        console.log('CARTLIST PROPS: ', props);
         props.reduxAuthenticate();
     }, [])
 
@@ -64,7 +63,7 @@ const CartList = (props) => {
                 <Button onClick={() => loadCart()} className="font-weight-bold" variant="outline-primary">Load Cart</Button>
                 <Button onClick={() => handleSaveCart()} className="font-weight-bold" variant="outline-success">Save Cart</Button>
             </div>
-            <div className="text-center mt-3 ">
+            <div className="text-center mt-3">
                 <h2 className="text-dark">Total: ${cartTotal}</h2>
                 <Button onClick={() => updateShowCheckout(true)} className="font-weight-bold" variant="outline-info" type="submit">Checkout</Button>
                 <SuccessFlash 
@@ -75,14 +74,9 @@ const CartList = (props) => {
             </div>
 
             <SuccessFlash message="Items Saved to Cart" className="mt-2" visible={showFlash}/>
-            { props.items.length > 0 ? props.items.map((item, i) => 
+            { props.items.length > 0 && props.items.map((item, i) => 
                 <CartItem key={i} {...item} index={i} reduxClearItem={props.reduxClearItem}/>
             ) 
-            :
-            <div className="d-flex justify-content-center">
-                <h2>Cart is empty</h2>
-            </div>
-           
             }
             <CheckoutForm 
                 show={showCheckout} 
