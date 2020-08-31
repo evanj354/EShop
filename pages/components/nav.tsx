@@ -43,7 +43,7 @@ const ShopNavbar = (props) => {
                 <Col md={7} xs={6}>
                     <Form onSubmit={props.handleSubmit}>
                         <InputGroup >
-                            <FormControl onChange={props.handleChange(props.updateSearchField)}/>
+                            <FormControl placeholder="Search a Product" onChange={props.handleChange(props.updateSearchField)}/>
                             <InputGroup.Append>
                                 <Button type="submit" id="basic-addon1" variant="outline-info"><i className="fa fa-search " aria-hidden="true"></i></Button>
                             </InputGroup.Append>
